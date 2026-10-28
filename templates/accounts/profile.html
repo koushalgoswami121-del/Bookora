@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+{% if profile.avatar %}<img class="avatar" src="{{ profile.avatar.url }}">{% endif %}
+<h1>@{{ profile_user.username }}</h1>
+{% if profile.bio %}<p>{{ profile.bio }}</p>{% endif %}
+{% if profile.link %}<p>🔗 <a href="{{ profile.link }}">{{ profile.link }}</a></p>{% endif %}
+{% if user == profile_user %}<p><a class="btn" href="/profile/edit/">Edit profile</a></p>{% endif %}
+</div>
+
+<h2>Ebooks by @{{ profile_user.username }}</h2>
+{% for e in ebooks %}<div class="card"><a href="/ebooks/{{ e.pk }}/">{{ e.title }}</a> — ${{ e.price }}</div>{% empty %}<p class="small">No ebooks yet.</p>{% endfor %}
+
+<h2>Posts</h2>
+{% for p in posts %}<div class="card"><p>{{ p.text }}</p>{% if p.image %}<img class="cover" src="{{ p.image.url }}">{% endif %}</div>{% empty %}<p class="small">No posts yet.</p>{% endfor %}
+
+<h2>Short videos</h2>
+{% for v in videos %}<div class="card"><video controls src="{{ v.video.url }}"></video><p>{{ v.caption }}</p></div>{% empty %}<p class="small">No videos yet.</p>{% endfor %}
+{% endblock %}

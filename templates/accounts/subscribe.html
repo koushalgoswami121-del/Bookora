@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Subscribe to Bookora</h1>
+<div class="card">
+<p>First month: <strong>${{ subscription.current_price }}</strong></p>
+<p class="small">After your first month, the price is $5.00/month.</p>
+<p class="small">Payment connection (Polo) is coming later, so this step only records your subscription as pending payment. No money is taken yet.</p>
+<form method="post">{% csrf_token %}<button class="btn" type="submit">Confirm subscription</button></form>
+</div>
+{% endblock %}

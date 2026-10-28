@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Bookora{% endblock %}</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#faf7f2;color:#222}
+header{background:#1f2937;color:#fff;padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header .brand{font-size:1.4rem}
+main{max-width:760px;margin:24px auto;padding:0 16px 60px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}
+.btn{display:inline-block;background:#7c3aed;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;border:0;cursor:pointer}
+.btn.secondary{background:#e5e7eb;color:#222}
+input,textarea,select{width:100%;padding:10px;margin:6px 0 12px;border:1px solid #d1d5db;border-radius:8px;box-sizing:border-box}
+label{font-weight:600}
+.messages{list-style:none;padding:0}
+.messages li{background:#fef3c7;padding:10px;border-radius:8px;margin:8px 0}
+.avatar{width:96px;height:96px;object-fit:cover;border-radius:50%}
+.cover{width:100%;max-height:260px;object-fit:cover;border-radius:10px}
+.feed-video{height:80vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center}
+.feed-video video{width:100%;max-height:70vh;border-radius:12px;background:#000}
+.scroll-feed{height:85vh;overflow-y:scroll;scroll-snap-type:y mandatory}
+.small{color:#6b7280;font-size:.9rem}
+</style>
+</head>
+<body>
+<header>
+<a class="brand" href="/">📚 Bookora</a>
+<a href="/videos/">Shorts</a>
+<a href="/ebooks/">Ebooks</a>
+<a href="/pricing/">Pricing</a>
+{% if user.is_authenticated %}
+<a href="/post/">Post</a>
+<a href="/videos/upload/">Upload video</a>
+<a href="/ebooks/upload/">Sell ebook</a>
+<a href="/library/">My library</a>
+<a href="/@{{ user.username }}/">My profile</a>
+<a href="/logout/">Log out</a>
+{% else %}
+<a href="/login/">Log in</a>
+<a href="/signup/">Sign up</a>
+{% endif %}
+</header>
+<main>
+{% if messages %}<ul class="messages">{% for m in messages %}<li>{{ m }}</li>{% endfor %}</ul>{% endif %}
+{% block content %}{% endblock %}
+</main>
+</body>
+</html>

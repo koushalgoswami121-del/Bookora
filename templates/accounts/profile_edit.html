@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Edit your profile</h1>
+<p class="small">Add your profile pic, bio, and a link to paste.</p>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.as_p }}<button class="btn" type="submit">Save profile</button></form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Bookora pricing</h1>
+<div class="card">
+<h2>Bookora Creator — ${{ monthly }} / month</h2>
+<p><strong>First month: ${{ first_month }} (50% off)</strong>, then ${{ monthly }} onwards.</p>
+<ul>
+<li>Sell your ebooks</li>
+<li>Upload short videos</li>
+<li>Post on your Bookora profile with pic, bio and link</li>
+</ul>
+{% if user.is_authenticated %}
+<p><a class="btn" href="/subscribe/">Subscribe</a></p>
+{% if subscription %}<p class="small">Your plan: {{ subscription.status }} — current price ${{ subscription.current_price }}</p>{% endif %}
+{% else %}
+<p><a class="btn" href="/signup/">Sign up to subscribe</a></p>
+{% endif %}
+<p class="small">Payment will be connected via Polo later. Nothing is charged in this version.</p>
+</div>
+{% endblock %}

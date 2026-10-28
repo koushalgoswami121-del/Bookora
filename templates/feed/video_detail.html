@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ video.caption }} — Bookora{% endblock %}
+{% block content %}
+<div class="card">
+<video controls loop playsinline preload="metadata" src="{{ video.video.url }}" style="width:100%;border-radius:12px;background:#000"></video>
+<p><strong><a href="/@{{ video.author.username }}/">@{{ video.author.username }}</a></strong> — {{ video.caption }}</p>
+<p>
+{% if user.is_authenticated %}
+<form method="post" action="/videos/{{ video.pk }}/like/" style="display:inline">{% csrf_token %}<input type="hidden" name="next" value="/videos/{{ video.pk }}/"><button class="btn" type="submit">{% if is_liked %}♥ Liked{% else %}♡ Like{% endif %} ({{ video.like_count }})</button></form>
+{% else %}
+<a class="btn" href="/login/">♡ Like ({{ video.like_count }})</a>
+{% endif %}
+<span class="small">💬 {{ video.comment_count }} comments</span>
+</p>
+</div>
+
+<h2>Comments</h2>
+{% for c in comments %}
+<div class="card"><strong>@{{ c.user.username }}</strong> <span class="small">{{ c.created_at }}</span><p>{{ c.text }}</p></div>
+{% empty %}<p class="small">No comments yet. Be the first.</p>{% endfor %}
+
+{% if user.is_authenticated %}
+<div class="card">
+<h3>Add a comment</h3>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn" type="submit">Post comment</button></form>
+</div>
+{% else %}
+<p><a class="btn" href="/login/">Log in to comment</a></p>
+{% endif %}
+<p><a href="/videos/">← Back to short videos</a></p>
+{% endblock %}

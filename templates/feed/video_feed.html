@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Short videos — Bookora{% endblock %}
+{% block content %}
+<h1>Short videos</h1>
+<p class="small">Scroll down to watch the next video. Tap a video to open its comments.</p>
+<div class="scroll-feed">
+{% for v in videos %}
+<div class="feed-video">
+<video controls loop playsinline preload="metadata" src="{{ v.video.url }}"></video>
+<p><strong><a href="/@{{ v.author.username }}/">@{{ v.author.username }}</a></strong> — {{ v.caption }}</p>
+<p>
+{% if user.is_authenticated %}
+<form method="post" action="/videos/{{ v.pk }}/like/" style="display:inline">{% csrf_token %}<input type="hidden" name="next" value="/videos/"><button class="btn" type="submit">{% if v.pk in liked_ids %}♥ Liked{% else %}♡ Like{% endif %} ({{ v.like_count }})</button></form>
+{% else %}
+<a class="btn" href="/login/">♡ Like ({{ v.like_count }})</a>
+{% endif %}
+<a class="btn secondary" href="/videos/{{ v.pk }}/">💬 Comments ({{ v.comment_count }})</a>
+</p>
+</div>
+{% empty %}
+<p>No short videos yet. <a href="/videos/upload/">Upload one</a>.</p>
+{% endfor %}
+</div>
+{% endblock %}

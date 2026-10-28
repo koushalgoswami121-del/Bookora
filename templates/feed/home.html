@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome to Bookora</h1>
+<p>Sell your ebooks, share short videos, and post on your Bookora profile.</p>
+<p><a class="btn" href="/videos/">Scroll short videos</a> <a class="btn secondary" href="/ebooks/">Browse ebooks</a></p>
+
+<h2>Latest posts</h2>
+{% for p in posts %}
+<div class="card"><strong><a href="/@{{ p.author.username }}/">@{{ p.author.username }}</a></strong> <span class="small">{{ p.created_at }}</span><p>{{ p.text }}</p>{% if p.image %}<img class="cover" src="{{ p.image.url }}">{% endif %}</div>
+{% empty %}<p class="small">No posts yet. Be the first to post.</p>{% endfor %}
+
+<h2>Latest short videos</h2>
+{% for v in videos %}
+<div class="card"><strong>@{{ v.author.username }}</strong><p>{{ v.caption }}</p><video controls preload="metadata" src="{{ v.video.url }}"></video><p>♥ {{ v.like_count }} &nbsp; 💬 <a href="/videos/{{ v.pk }}/">{{ v.comment_count }} comments</a></p></div>
+{% empty %}<p class="small">No videos yet.</p>{% endfor %}
+{% endblock %}

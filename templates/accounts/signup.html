@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Join Bookora</h1>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn" type="submit">Sign up</button></form>
+<p>Already have an account? <a href="/login/">Log in</a></p>
+{% endblock %}

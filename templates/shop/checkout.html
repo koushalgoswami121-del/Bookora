@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Buy: {{ ebook.title }}</h1>
+<div class="card">
+<p>Price: <strong>${{ ebook.price }}</strong></p>
+<p class="small">Payment will be connected via Polo later. This step records your order as pending payment and does not charge you yet.</p>
+<form method="post">{% csrf_token %}<button class="btn" type="submit">Confirm order</button></form>
+</div>
+{% endblock %}

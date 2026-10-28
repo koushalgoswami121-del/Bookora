@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>My library</h1>
+{% for p in purchases %}
+<div class="card"><a href="/ebooks/{{ p.ebook.pk }}/">{{ p.ebook.title }}</a> — ${{ p.amount }} — {{ p.status }} {% if p.status == "paid" or p.ebook.author == user %}<a href="/ebooks/{{ p.ebook.pk }}/download/">Download</a>{% endif %}</div>
+{% empty %}<p class="small">You haven't bought any ebooks yet.</p>{% endfor %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+{% if ebook.cover %}<img class="cover" src="{{ ebook.cover.url }}">{% endif %}
+<h1>{{ ebook.title }}</h1>
+<p>by <a href="/@{{ ebook.author.username }}/">@{{ ebook.author.username }}</a> — <strong>${{ ebook.price }}</strong></p>
+<p>{{ ebook.description }}</p>
+{% if owned %}
+<p><a class="btn" href="/ebooks/{{ ebook.pk }}/download/">Download ebook</a></p>
+{% elif user.is_authenticated %}
+<p><a class="btn" href="/ebooks/{{ ebook.pk }}/buy/">Buy this ebook</a></p>
+{% else %}
+<p><a class="btn" href="/login/">Log in to buy</a></p>
+{% endif %}
+</div>
+{% endblock %}

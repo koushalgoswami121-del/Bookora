@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Ebooks for sale</h1>
+<p><a class="btn" href="/ebooks/upload/">Sell your ebook</a></p>
+{% for e in ebooks %}
+<div class="card">
+{% if e.cover %}<img class="cover" src="{{ e.cover.url }}">{% endif %}
+<h2><a href="/ebooks/{{ e.pk }}/">{{ e.title }}</a></h2>
+<p>by @{{ e.author.username }} — <strong>${{ e.price }}</strong></p>
+<p>{{ e.description }}</p>
+</div>
+{% empty %}<p class="small">No ebooks listed yet.</p>{% endfor %}
+{% endblock %}
